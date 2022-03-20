@@ -16,6 +16,7 @@ This application includes:
 - Database: Postgres SQL
 - ORM library for Nodejs: Sequelize
 - Service layer and repository pattern, module pattern, dependence injection, etc...
+- Unit testing: Jest (JavaScript Testing Framework)
 
 ## Installation
 
@@ -81,6 +82,14 @@ $ $ nest g controller [controller_name]
 
 - Nest is an MIT-licensed open source project. read document alter using this repository at  [NestJsDocs](https://docs.nestjs.com).
 - Sequelize is a promise-based Node.js ORM for Postgres, MySQL, MariaDB, SQLite and Microsoft SQL Server. It features solid transaction support, relations, eager and lazy loading, read replication and more at [SequelizeDocs](https://sequelize.org/).
+
+## Docker supports
+
+```
+# run docker compose on detach mode
+$ docker-compose up --detach
+```
+
 
 ## CI/CD
 
