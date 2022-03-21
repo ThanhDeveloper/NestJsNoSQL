@@ -23,7 +23,6 @@ export class UsersController {
   @Get('me')
   @UseInterceptors(TransformInterceptor)
   async get(@Request() req) {
-    console.log(req.user);
-    return null;
+    return await this.usersService.getUserLoggedIn(req.user.id);
   }
 }

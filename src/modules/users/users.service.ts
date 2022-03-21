@@ -26,4 +26,13 @@ export class UsersService {
   async findOneById(id: number): Promise<User> {
     return await this.usersRepository.findOne<User>({ where: { id } });
   }
+
+  async getUserLoggedIn(id): Promise<User> {
+    const loggedInUser = await this.usersRepository.findOne<User>({
+      where: { id },
+      attributes: ['id' ,'username'],
+    });
+    if (loggedInUser) return loggedInUser;
+    return null;
+  }
 }
