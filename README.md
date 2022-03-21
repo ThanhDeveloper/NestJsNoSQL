@@ -16,7 +16,7 @@ This application includes:
 - Database: Postgres SQL
 - ORM library for Nodejs: Sequelize
 - Service layer and repository pattern, module pattern, dependence injection, etc...
-- Unit testing: Jest (JavaScript Testing Framework)
+- Unit testing: Jest (JavaScript Testing Framework - Meta)
 
 ## Installation
 

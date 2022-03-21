@@ -1,7 +1,11 @@
-import { HttpException, HttpStatus } from "@nestjs/common";
+import { HttpException, HttpStatus } from '@nestjs/common';
 
 export class BaseException extends HttpException {
-  constructor(response: string | Record<string, any>, status: number, private clientCode: number) {
+  constructor(
+    response: string | Record<string, any>,
+    status: number,
+    private clientCode: number,
+  ) {
     super(response, status);
   }
 
@@ -26,17 +30,22 @@ export class UnauthorizedException extends BaseException {
 
 export class EntityNotFoundException extends BaseException {
   constructor(msg?: any, error_code?: any) {
-    const body = { success: false,
-       message: msg ? msg: 'Resouce not found',
-       error_code: error_code ? error_code : 'RESOURCE_NOT_FOUND'
-       };
+    const body = {
+      success: false,
+      message: msg ? msg : 'Resource not found',
+      error_code: error_code ? error_code : 'RESOURCE_NOT_FOUND',
+    };
     super(body, HttpStatus.NOT_FOUND, 404);
   }
 }
 
 export class BussinessException extends BaseException {
   constructor(msg: string, error_code?: any) {
-    const body = { success: false, message: msg, error_code: error_code ? error_code : 'BUSINESS_EXCEPTION'};
+    const body = {
+      success: false,
+      message: msg,
+      error_code: error_code ? error_code : 'BUSINESS_EXCEPTION',
+    };
     super(body, HttpStatus.BAD_REQUEST, 400);
   }
 }
