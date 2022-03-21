@@ -49,3 +49,14 @@ export class BussinessException extends BaseException {
     super(body, HttpStatus.BAD_REQUEST, 400);
   }
 }
+
+export class InvalidArgumentException extends BaseException {
+  constructor(msg: string, error_code?: any) {
+    const body = {
+      success: false,
+      message: msg,
+      error_code: error_code ? error_code : 'INVALID_ARGUMENT_EXCEPTION',
+    };
+    super(body, HttpStatus.BAD_REQUEST, 400);
+  }
+}

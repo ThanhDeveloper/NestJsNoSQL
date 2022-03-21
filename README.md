@@ -78,6 +78,20 @@ $ nest g resource [name]
 $ $ nest g controller [controller_name] 
 ```
 
+## API sample
+
+| HTTP Requests     | URL          | Method |
+|-------------------| ------------ |--------|
+| Index entry point | /            | `GET`  |
+| Login             | api/v1/users | `POST`    |
+| SignUp            | api/v1/users | `POST`  |
+| Get all users     | api/v1/users | `GET`  |
+| Get user by id    | api/v1/users/:id | `GET`  |
+
+## Swagger docs
+
+Updating
+
 ## Document
 
 - Nest is an MIT-licensed open source project. read document alter using this repository at  [NestJsDocs](https://docs.nestjs.com).

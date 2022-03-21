@@ -1,4 +1,5 @@
 import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import { IsNotEmpty } from 'class-validator';
 
 @Table
 export class User extends Model<User> {
@@ -9,6 +10,7 @@ export class User extends Model<User> {
   })
   id: number;
 
+  @IsNotEmpty()
   @Column({
     type: DataType.STRING,
     unique: true,
@@ -17,6 +19,7 @@ export class User extends Model<User> {
   })
   username: string;
 
+  @IsNotEmpty()
   @Column({
     type: DataType.STRING,
     allowNull: false,
