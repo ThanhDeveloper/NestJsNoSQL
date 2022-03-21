@@ -1,6 +1,5 @@
 import { Table, Column, Model, DataType } from 'sequelize-typescript';
 import { IsNotEmpty } from 'class-validator';
-import { AutoMap } from '@nartc/automapper';
 
 @Table
 export class User extends Model<User> {
