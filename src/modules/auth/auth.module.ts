@@ -1,5 +1,4 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-require('dotenv').config();
 import { JwtStrategy } from './jwt.strategy';
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
@@ -8,14 +7,15 @@ import { LocalStrategy } from './local.strategy';
 import { PassportModule } from '@nestjs/passport';
 import { UsersModule } from '../users/users.module';
 import { JwtModule } from '@nestjs/jwt';
+import { TOKEN_EXPIRATION, JWTKEY } from '../../core/constants';
 
 @Module({
   imports: [
     PassportModule,
     UsersModule,
     JwtModule.register({
-      secret: process.env.JWTKEY,
-      signOptions: { expiresIn: process.env.TOKEN_EXPIRATION },
+      secret: JWTKEY,
+      signOptions: { expiresIn: TOKEN_EXPIRATION },
     }),
   ],
   providers: [AuthService, LocalStrategy, JwtStrategy],

@@ -4,12 +4,12 @@ import {
   Body,
   UseGuards,
   UseInterceptors,
+  Request,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { TransformInterceptor } from '../../core/utils/transform-interceptor.util';
-import { LoginUserDto } from './dto/login-user.dto';
 
 @Controller('api/v1/auth')
 export class AuthController {
@@ -18,8 +18,8 @@ export class AuthController {
   @Post('login')
   @UseGuards(AuthGuard('local'))
   @UseInterceptors(TransformInterceptor)
-  async login(@Body() loginUserDto: LoginUserDto) {
-    return await this.authService.login(loginUserDto);
+  async login(@Request() req) {
+    return await this.authService.login(req.user);
   }
 
   @Post('register')

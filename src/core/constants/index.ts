@@ -6,3 +6,7 @@ export const PRODUCTION = 'production';
 
 //repository
 export const USER_REPOSITORY = 'USER_REPOSITORY';
+
+//auth
+export const JWTKEY = 'JwtSecretKey6996';
+export const TOKEN_EXPIRATION = '24h';

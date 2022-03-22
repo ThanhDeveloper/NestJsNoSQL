@@ -30,7 +30,7 @@ export class UsersService {
   async getUserLoggedIn(id): Promise<User> {
     const loggedInUser = await this.usersRepository.findOne<User>({
       where: { id },
-      attributes: ['id' ,'username'],
+      attributes: ['id', 'username'],
     });
     if (loggedInUser) return loggedInUser;
     return null;

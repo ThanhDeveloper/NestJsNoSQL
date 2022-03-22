@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { BussinessException, InvalidArgumentException } from "src/core/utils/error-handler.util";
+import { InvalidArgumentException } from 'src/core/utils/error-handler.util';
 
 @Injectable()
 export class AuthService {
