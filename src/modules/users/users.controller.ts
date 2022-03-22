@@ -8,7 +8,9 @@ import {
 import { UsersService } from './users.service';
 import { TransformInterceptor } from '../../core/utils/transform-interceptor.util';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('users')
 @Controller('api/v1/users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
