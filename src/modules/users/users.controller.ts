@@ -8,8 +8,9 @@ import {
 import { UsersService } from './users.service';
 import { TransformInterceptor } from '../../core/utils/transform-interceptor.util';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @ApiTags('users')
 @Controller('api/v1/users')
 export class UsersController {
@@ -21,8 +22,8 @@ export class UsersController {
     return await this.usersService.findAll();
   }
 
-  @UseGuards(AuthGuard('jwt'))
   @Get('me')
+  @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(TransformInterceptor)
   async get(@Request() req) {
     return await this.usersService.getUserLoggedIn(req.user.id);

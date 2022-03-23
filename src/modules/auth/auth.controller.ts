@@ -5,12 +5,14 @@ import {
   UseGuards,
   UseInterceptors,
   Request,
+  HttpCode,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { TransformInterceptor } from '../../core/utils/transform-interceptor.util';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
+import { LoginUserDto } from './dto/login-user.dto';
 
 @ApiTags('authentication')
 @Controller('api/v1/auth')
@@ -19,7 +21,9 @@ export class AuthController {
 
   @Post('login')
   @UseGuards(AuthGuard('local'))
+  @ApiBody({ type: LoginUserDto })
   @UseInterceptors(TransformInterceptor)
+  @HttpCode(200)
   async login(@Request() req) {
     return await this.authService.login(req.user);
   }

@@ -90,7 +90,7 @@ $ $ nest g controller [controller_name]
 
 ## Swagger docs
 
-Updating
+- Open API documentation with nestjs/swagger
 
 ## Document
 
