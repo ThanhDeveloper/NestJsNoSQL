@@ -14,7 +14,7 @@ export class ValidateAuthMiddleware extends ValidationPipe {
     } catch (e) {
       if (e instanceof BadRequestException) {
         throw new UnprocessableEntityException(
-          ValidateAuthMiddleware.handleError('xxx'),
+          ValidateAuthMiddleware.handleError('Unauthorized'),
         );
       }
     }

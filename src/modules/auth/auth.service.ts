@@ -3,6 +3,10 @@ import { UsersService } from '../users/users.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { InvalidArgumentException } from 'src/core/utils/error-handler.util';
+// import { createNamespace } from 'cls-hooked';
+// import { Sequelize } from 'sequelize-typescript';
+// const namespace = createNamespace('sequelize-cls-namespace');
+// (Sequelize as any).__proto__.useCLS(namespace);
 
 @Injectable()
 export class AuthService {
