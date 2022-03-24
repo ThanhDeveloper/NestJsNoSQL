@@ -96,6 +96,7 @@ $ $ nest g controller [controller_name]
 
 - Nest is an MIT-licensed open source project. read document alter using this repository at  [NestJsDocs](https://docs.nestjs.com).
 - Sequelize is a promise-based Node.js ORM for Postgres, MySQL, MariaDB, SQLite and Microsoft SQL Server. It features solid transaction support, relations, eager and lazy loading, read replication and more at [SequelizeDocs](https://sequelize.org/).
+- Automapper: https://www.npmjs.com/package/@automapper/nestjs (current highest version v7)
 
 ## Docker supports
 
