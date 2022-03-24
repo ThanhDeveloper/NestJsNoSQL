@@ -9,6 +9,7 @@ import { UsersService } from './users.service';
 import { TransformInterceptor } from '../../core/utils/transform-interceptor.util';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { LoggedInUserDto } from './dto/logged-in-user.dto';
 
 @ApiBearerAuth()
 @ApiTags('users')
@@ -25,7 +26,7 @@ export class UsersController {
   @Get('me')
   @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(TransformInterceptor)
-  async get(@Request() req) {
+  async get(@Request() req): Promise<LoggedInUserDto> {
     return await this.usersService.getUserLoggedIn(req.user.id);
   }
 }

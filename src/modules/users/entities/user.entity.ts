@@ -1,8 +1,10 @@
 import { Table, Column, Model, DataType } from 'sequelize-typescript';
 import { IsNotEmpty } from 'class-validator';
+import { AutoMap } from '@automapper/classes';
 
 @Table
 export class User extends Model<User> {
+  @AutoMap()
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
@@ -10,6 +12,7 @@ export class User extends Model<User> {
   })
   id: number;
 
+  @AutoMap()
   @IsNotEmpty()
   @Column({
     type: DataType.STRING,

@@ -2,10 +2,16 @@ import { Inject, Injectable } from '@nestjs/common';
 import { User } from './entities/user.entity';
 import { USER_REPOSITORY } from '../../core/constants';
 import { RegisterUserDto } from '../auth/dto/register-user.dto';
+import { LoggedInUserDto } from './dto/logged-in-user.dto';
+import { InjectMapper } from '@automapper/nestjs';
+import { Mapper } from '@automapper/core';
 
 @Injectable()
 export class UsersService {
-  constructor(@Inject(USER_REPOSITORY) private usersRepository: typeof User) {}
+  constructor(
+    @Inject(USER_REPOSITORY) private usersRepository: typeof User,
+    @InjectMapper() private readonly Mapper: Mapper,
+  ) {}
 
   async create(registerUserDto: RegisterUserDto): Promise<User> {
     return await this.usersRepository.create<User>(registerUserDto);
@@ -27,12 +33,10 @@ export class UsersService {
     return await this.usersRepository.findOne<User>({ where: { id } });
   }
 
-  async getUserLoggedIn(id): Promise<User> {
-    const loggedInUser = await this.usersRepository.findOne<User>({
+  async getUserLoggedIn(id): Promise<LoggedInUserDto> {
+    const currentUser: User = await this.usersRepository.findOne<User>({
       where: { id },
-      attributes: ['id', 'username'],
     });
-    if (loggedInUser) return loggedInUser;
-    return null;
+    return this.Mapper.map(currentUser, LoggedInUserDto, User);
   }
 }
