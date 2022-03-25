@@ -6,11 +6,11 @@ import {
   Request,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { TransformInterceptor } from '../../core/interceptor/transform-interceptor.util';
+import { TransformInterceptor } from '../../core/interceptors/transform-interceptor.util';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { LoggedInUserDto } from './dto/logged-in-user.dto';
-import { TimeoutInterceptor } from '../../core/interceptor/timeout.interceptor';
+import { TimeoutInterceptor } from '../../core/interceptors/timeout.interceptor';
 
 @ApiBearerAuth()
 @ApiTags('users')

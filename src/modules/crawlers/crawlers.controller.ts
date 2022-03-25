@@ -1,8 +1,8 @@
 import { Controller, Get, UseInterceptors, Query } from '@nestjs/common';
 import { CrawlersService } from './crawlers.service';
-import { TransformInterceptor } from '../../core/interceptor/transform-interceptor.util';
+import { TransformInterceptor } from '../../core/interceptors/transform-interceptor.util';
 import { ApiTags } from '@nestjs/swagger';
-import { TimeoutInterceptor } from '../../core/interceptor/timeout.interceptor';
+import { TimeoutInterceptor } from '../../core/interceptors/timeout.interceptor';
 
 @Controller('api/v1/crawlers')
 export class CrawlersController {

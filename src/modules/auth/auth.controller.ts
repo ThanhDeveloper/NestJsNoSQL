@@ -10,10 +10,10 @@ import {
 import { AuthService } from './auth.service';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { AuthGuard } from '@nestjs/passport';
-import { TransformInterceptor } from '../../core/interceptor/transform-interceptor.util';
+import { TransformInterceptor } from '../../core/interceptors/transform-interceptor.util';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { LoginUserDto } from './dto/login-user.dto';
-import { TimeoutInterceptor } from '../../core/interceptor/timeout.interceptor';
+import { TimeoutInterceptor } from '../../core/interceptors/timeout.interceptor';
 
 @ApiTags('authentication')
 @Controller('api/v1/auth')
