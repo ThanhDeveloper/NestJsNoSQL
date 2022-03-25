@@ -10,9 +10,10 @@ import {
 import { AuthService } from './auth.service';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { AuthGuard } from '@nestjs/passport';
-import { TransformInterceptor } from '../../core/utils/transform-interceptor.util';
+import { TransformInterceptor } from '../../core/interceptor/transform-interceptor.util';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { LoginUserDto } from './dto/login-user.dto';
+import { TimeoutInterceptor } from '../../core/interceptor/timeout.interceptor';
 
 @ApiTags('authentication')
 @Controller('api/v1/auth')
@@ -22,14 +23,14 @@ export class AuthController {
   @Post('login')
   @UseGuards(AuthGuard('local'))
   @ApiBody({ type: LoginUserDto })
-  @UseInterceptors(TransformInterceptor)
+  @UseInterceptors(TransformInterceptor, TimeoutInterceptor)
   @HttpCode(200)
   async login(@Request() req) {
     return await this.authService.login(req.user);
   }
 
   @Post('register')
-  @UseInterceptors(TransformInterceptor)
+  @UseInterceptors(TransformInterceptor, TimeoutInterceptor)
   async signUp(@Body() registerUserDto: RegisterUserDto) {
     return await this.authService.register(registerUserDto);
   }

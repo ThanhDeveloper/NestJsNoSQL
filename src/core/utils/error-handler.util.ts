@@ -60,3 +60,14 @@ export class InvalidArgumentException extends BaseException {
     super(body, HttpStatus.BAD_REQUEST, 400);
   }
 }
+
+export class TimeOutException extends BaseException {
+  constructor(msg?: any, error_code?: any) {
+    const body = {
+      success: false,
+      message: msg ? msg : 'Request Timeout',
+      error_code: error_code ? error_code : 'REQUEST_TIMEOUT',
+    };
+    super(body, HttpStatus.REQUEST_TIMEOUT, 408);
+  }
+}

@@ -6,10 +6,11 @@ import {
   Request,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { TransformInterceptor } from '../../core/utils/transform-interceptor.util';
+import { TransformInterceptor } from '../../core/interceptor/transform-interceptor.util';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { LoggedInUserDto } from './dto/logged-in-user.dto';
+import { TimeoutInterceptor } from '../../core/interceptor/timeout.interceptor';
 
 @ApiBearerAuth()
 @ApiTags('users')
@@ -18,14 +19,14 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
-  @UseInterceptors(TransformInterceptor)
+  @UseInterceptors(TransformInterceptor, TimeoutInterceptor)
   async findAll() {
     return await this.usersService.findAll();
   }
 
   @Get('me')
   @UseGuards(AuthGuard('jwt'))
-  @UseInterceptors(TransformInterceptor)
+  @UseInterceptors(TransformInterceptor, TimeoutInterceptor)
   async get(@Request() req): Promise<LoggedInUserDto> {
     return await this.usersService.getUserLoggedIn(req.user.id);
   }
