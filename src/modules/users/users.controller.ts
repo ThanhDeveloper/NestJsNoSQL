@@ -14,7 +14,7 @@ import { TimeoutInterceptor } from '../../core/interceptors/timeout.interceptor'
 import { SkipThrottle } from '@nestjs/throttler';
 
 @ApiBearerAuth()
-@SkipThrottle()
+//@SkipThrottle()
 @ApiTags('users')
 @Controller('api/v1/users')
 export class UsersController {
