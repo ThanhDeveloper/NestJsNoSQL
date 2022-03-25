@@ -15,7 +15,7 @@ This application includes:
 - Backend: NestJs (Nodejs framework)
 - Database: Postgres SQL
 - ORM library for Nodejs: Sequelize
-- Service layer and repository pattern, module pattern, dependence injection, etc...
+- Service layer and repository pattern, module pattern, dependence injection, automapper, rate limiter, etc...
 - Unit testing: Jest (JavaScript Testing Framework - Meta)
 
 ## Installation

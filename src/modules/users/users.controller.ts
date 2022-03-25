@@ -11,8 +11,10 @@ import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { LoggedInUserDto } from './dto/logged-in-user.dto';
 import { TimeoutInterceptor } from '../../core/interceptors/timeout.interceptor';
+import { SkipThrottle } from '@nestjs/throttler';
 
 @ApiBearerAuth()
+@SkipThrottle()
 @ApiTags('users')
 @Controller('api/v1/users')
 export class UsersController {

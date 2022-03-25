@@ -6,6 +6,9 @@ import { AuthModule } from './modules/auth/auth.module';
 import { CrawlersModule } from './modules/crawlers/crawlers.module';
 import { classes } from '@automapper/classes';
 import { AutomapperModule } from '@automapper/nestjs';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
+import { AppService } from './app.service';
 
 @Module({
   imports: [
@@ -18,6 +21,17 @@ import { AutomapperModule } from '@automapper/nestjs';
       options: [{ name: 'classMapper', pluginInitializer: classes }],
       singular: true,
     }),
+    ThrottlerModule.forRoot({
+      ttl: 60,
+      limit: 10,
+    }),
+  ],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
   ],
 })
 export class AppModule {}
