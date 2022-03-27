@@ -3,8 +3,9 @@ import { CrawlersService } from './crawlers.service';
 import { TransformInterceptor } from '../../core/interceptors/transform-interceptor.util';
 import { ApiTags } from '@nestjs/swagger';
 import { TimeoutInterceptor } from '../../core/interceptors/timeout.interceptor';
+import { API_VERSION } from "../../core/constants";
 
-@Controller('api/v1/crawlers')
+@Controller(API_VERSION + '/crawlers')
 export class CrawlersController {
   constructor(private readonly crawlersService: CrawlersService) {}
 

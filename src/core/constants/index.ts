@@ -1,3 +1,6 @@
+//base version API
+export const API_VERSION = 'api/v1/';
+
 //sequelize
 export const SEQUELIZE = 'SEQUELIZE';
 export const DEVELOPMENT = 'development';

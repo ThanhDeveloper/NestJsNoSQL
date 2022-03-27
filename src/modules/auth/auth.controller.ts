@@ -14,9 +14,10 @@ import { TransformInterceptor } from '../../core/interceptors/transform-intercep
 import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { LoginUserDto } from './dto/login-user.dto';
 import { TimeoutInterceptor } from '../../core/interceptors/timeout.interceptor';
+import { API_VERSION } from "../../core/constants";
 
 @ApiTags('authentication')
-@Controller('api/v1/auth')
+@Controller(API_VERSION + 'auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 

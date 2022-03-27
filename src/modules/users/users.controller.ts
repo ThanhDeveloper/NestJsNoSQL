@@ -13,11 +13,12 @@ import { LoggedInUserDto } from './dto/logged-in-user.dto';
 import { TimeoutInterceptor } from '../../core/interceptors/timeout.interceptor';
 import { SkipThrottle } from '@nestjs/throttler';
 import {User} from "./entities/user.entity";
+import { API_VERSION } from "../../core/constants";
 
 @ApiBearerAuth()
 //@SkipThrottle()
 @ApiTags('users')
-@Controller('api/v1/users')
+@Controller(API_VERSION + 'users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
