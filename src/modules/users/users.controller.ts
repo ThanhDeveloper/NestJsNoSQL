@@ -12,6 +12,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { LoggedInUserDto } from './dto/logged-in-user.dto';
 import { TimeoutInterceptor } from '../../core/interceptors/timeout.interceptor';
 import { SkipThrottle } from '@nestjs/throttler';
+import {User} from "./entities/user.entity";
 
 @ApiBearerAuth()
 //@SkipThrottle()
@@ -22,7 +23,7 @@ export class UsersController {
 
   @Get()
   @UseInterceptors(TransformInterceptor, TimeoutInterceptor)
-  async findAll() {
+  async getAllUser() {
     return await this.usersService.findAll();
   }
 
