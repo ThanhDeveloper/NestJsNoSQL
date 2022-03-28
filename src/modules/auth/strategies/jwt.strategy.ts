@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
-import { UsersService } from '../users/users.service';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { UnauthorizedException } from '../../core/utils/error-handler.util';
-import { JWTKEY } from '../../core/constants';
+import { JWTKEY } from '../../../core/constants';
+import { UnauthorizedException } from '../../../core/utils/error-handler.util';
+import { UsersService } from '../../users/users.service';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -17,7 +17,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
   async validate(payload: any) {
     // check if user in the token actually exist
-    const user = await this.userService.findOneById(payload.id);
+    const user = await this.userService.findOneById(payload._id);
     if (!user) {
       throw new UnauthorizedException();
     }

@@ -3,6 +3,7 @@ import { UsersService } from '../users/users.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { InvalidArgumentException } from '../../core/utils/error-handler.util';
+import { RegisterUserDto } from './dto/register-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -26,49 +27,57 @@ export class AuthService {
 
     // tslint:disable-next-line: no-string-literal
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password, ...result } = user['dataValues'];
+    const { password, ...result } = user['_doc'];
     return result;
   }
 
   public async login(user) {
     const token = await this.generateToken(user);
     return {
-      id: user.id,
+      id: user._id,
       username: user.username,
       message: 'successfully logged',
       token,
     };
   }
 
-  public async register(user) {
-    const userExist = await this.userService.findOneByUsername(user.username);
+  public async register(registerUserDto: RegisterUserDto) {
+    const userExist = await this.userService.findOneByUsername(
+      registerUserDto.username,
+    );
     if (userExist) {
       throw new InvalidArgumentException('This username already exist');
     }
 
     // hash the password
-    const pass = await AuthService.hashPassword(user.password);
+    const hashedPassword = await AuthService.hashPassword(
+      registerUserDto.password,
+    );
 
     // create the user
-    const newUser = await this.userService.create({ ...user, password: pass });
+    const newUser = await this.userService.create({
+      ...registerUserDto,
+      password: hashedPassword,
+    });
 
     // tslint:disable-next-line: no-string-literal
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password, ...result } = newUser['dataValues'];
-
-    // generate token
+    const { password, ...result } = newUser;
+    //
+    // // generate token
     const token = await this.generateToken(result);
 
     // return the user and the token
     return {
-      id: result.id,
-      username: result.username,
+      // id: newUser.id,
+      username: newUser.username,
       message: 'Register success',
       token,
     };
   }
 
   private async generateToken(user) {
+    console.log('sign ', user);
     return await this.jwtService.signAsync(user);
   }
 

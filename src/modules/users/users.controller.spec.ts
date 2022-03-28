@@ -3,7 +3,6 @@ import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 import { AutomapperModule } from '@automapper/nestjs';
 import { classes } from '@automapper/classes';
-import { usersProviders } from './users.providers';
 
 describe('UsersController', () => {
   let controller: UsersController;
@@ -17,7 +16,7 @@ describe('UsersController', () => {
         }),
       ],
       controllers: [UsersController],
-      providers: [UsersService, ...usersProviders],
+      providers: [UsersService],
     }).compile();
 
     controller = module.get<UsersController>(UsersController);

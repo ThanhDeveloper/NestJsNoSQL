@@ -1,8 +1,9 @@
 import { AutomapperProfile, InjectMapper } from '@automapper/nestjs';
 import type { Mapper } from '@automapper/core';
 import { Injectable } from '@nestjs/common';
-import { User } from '../modules/users/entities/user.entity';
-import { LoggedInUserDto } from '../modules/users/dto/logged-in-user.dto';
+import { User } from '../modules/users/schemas/user.schema';
+import { mapFrom } from '@automapper/core';
+import { RegisterUserDto } from '../modules/auth/dto/register-user.dto';
 
 @Injectable()
 export class UserProfile extends AutomapperProfile {
@@ -12,17 +13,11 @@ export class UserProfile extends AutomapperProfile {
 
   mapProfile() {
     return (mapper) => {
-      // mapper
-      //   .createMap(User, LoggedInUserDto)
-      //   .forMember(
-      //     (destination) => destination.id,
-      //     mapFrom((source) => source.id),
-      //   )
-      //   .forMember(
-      //     (destination) => destination.username,
-      //     mapFrom((source) => source.username),
-      //   );
-      mapper.createMap(User, LoggedInUserDto);
+      //dto => schema
+      mapper.createMap(RegisterUserDto, User).forMember(
+        (destination) => destination.create_at,
+        mapFrom(() => new Date()),
+      );
       //other mapper here
     };
   }

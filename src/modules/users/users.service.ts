@@ -1,42 +1,44 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { User } from './entities/user.entity';
-import { USER_REPOSITORY } from '../../core/constants';
-import { RegisterUserDto } from '../auth/dto/register-user.dto';
-import { LoggedInUserDto } from './dto/logged-in-user.dto';
+import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { User, UserDocument } from './schemas/user.schema';
+import { Model } from 'mongoose';
 import { InjectMapper } from '@automapper/nestjs';
 import { Mapper } from '@automapper/core';
+import { RegisterUserDto } from '../auth/dto/register-user.dto';
 
 @Injectable()
 export class UsersService {
   constructor(
-    @Inject(USER_REPOSITORY) private usersRepository: typeof User,
+    @InjectModel(User.name) private readonly model: Model<UserDocument>,
     @InjectMapper() private readonly Mapper: Mapper,
   ) {}
 
-  async create(registerUserDto: RegisterUserDto): Promise<User> {
-    return await this.usersRepository.create<User>(registerUserDto);
+  async findAll(): Promise<User[]> {
+    return await this.model.find().exec();
   }
 
-  async findAll(): Promise<User[]> {
-    return await this.usersRepository.findAll<User>({
-      attributes: ['id', 'username'],
-    });
+  async findOne(id: string): Promise<User> {
+    return this.model.findOne({ _id: id }).exec();
+  }
+
+  async create(createUserDto: RegisterUserDto): Promise<User> {
+    const newUser = this.Mapper.map(createUserDto, User, RegisterUserDto);
+    return await new this.model({
+      ...newUser,
+    }).save();
+  }
+
+  async findOneById(id: string): Promise<User> {
+    return this.model.findOne({ _id: id }).exec();
   }
 
   async findOneByUsername(username: string): Promise<User> {
-    return await this.usersRepository.findOne<User>({
-      where: { username: username },
-    });
+    return this.model.findOne({ username: username }).exec();
   }
 
-  async findOneById(id: number): Promise<User> {
-    return await this.usersRepository.findOne<User>({ where: { id } });
-  }
-
-  async getUserLoggedIn(id): Promise<LoggedInUserDto> {
-    const currentUser: User = await this.usersRepository.findOne<User>({
-      where: { id },
-    });
-    return this.Mapper.map(currentUser, LoggedInUserDto, User);
+  async getUserLoggedIn(id: string): Promise<User> {
+    return await this.model
+      .findOne({ _id: id }, { username: 1, create_at: 1, _id: 0 })
+      .exec();
   }
 }
