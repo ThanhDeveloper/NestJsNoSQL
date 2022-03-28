@@ -62,22 +62,21 @@ export class AuthService {
 
     // tslint:disable-next-line: no-string-literal
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password, ...result } = newUser;
+    const { password, ...result } = newUser['_doc'];
     //
     // // generate token
     const token = await this.generateToken(result);
 
     // return the user and the token
     return {
-      // id: newUser.id,
-      username: newUser.username,
+      id: result._id,
+      username: result.username,
       message: 'Register success',
       token,
     };
   }
 
   private async generateToken(user) {
-    console.log('sign ', user);
     return await this.jwtService.signAsync(user);
   }
 

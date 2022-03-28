@@ -37,8 +37,6 @@ export class UsersService {
   }
 
   async getUserLoggedIn(id: string): Promise<User> {
-    return await this.model
-      .findOne({ _id: id }, { username: 1, create_at: 1, _id: 0 })
-      .exec();
+    return await this.model.findOne({ _id: id }).exec();
   }
 }
