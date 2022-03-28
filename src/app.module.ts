@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require('dotenv').config();
 import { Module } from '@nestjs/common';
 import { UsersModule } from './modules/users/users.module';
 import { ConfigModule } from '@nestjs/config';
@@ -18,9 +20,7 @@ import { AuthModule } from './modules/auth/auth.module';
       limit: 10,
     }),
     ConfigModule.forRoot({ isGlobal: true }),
-    MongooseModule.forRoot(
-      'mongodb+srv://mongo:mongo68@clusternestjs.owql6.mongodb.net/test?retryWrites=true&w=majority',
-    ),
+    MongooseModule.forRoot(process.env.MONGO_DB_URI),
     AutomapperModule.forRoot({
       options: [{ name: 'classMapper', pluginInitializer: classes }],
       singular: true,
